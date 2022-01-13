@@ -1,0 +1,97 @@
+BoxLayout:
+    ScreenManager:
+        id: screen_manager
+
+        Home:
+            name: "home"
+        Thematics:
+            name: "thematics"
+        Details:
+            name: "details"
+
+<Home>:
+    BoxLayout:
+        orientation: "horizontal"
+
+        canvas:
+            Rectangle:
+                source: "assets/home/background.png"
+                pos: self.pos
+                size: self.size
+
+        Video:
+            source: "assets/home/video.mp4"
+            state: "play"
+            options: {"eos": "loop"}
+            pos_hint: {'center_x': 0.5, 'y': 0.5}
+            size: (0.5, 0.5)
+
+        Image:
+            source: "assets/home/title.png"
+
+        ImageButton:
+            source: "assets/home/play.png"
+            on_press:
+                root.manager.current="thematics"
+
+<Thematics>:
+    BoxLayout:
+        orientation: "vertical"
+
+        canvas:
+            Rectangle:
+                source: "assets/hub_thematics/background.png"
+                pos: self.pos
+                size: self.size
+
+        Image:
+            source: "assets/hub_thematics/title.png"
+            pos_hint: {"center_x": 0.5, "center_y": 0.6}
+            size_hint: (.8, .3)
+
+        RecycleView:
+            data: root.rv_data
+            viewclass: "Image_nav"
+            RecycleGridLayout:
+                cols: 5
+                default_size: None, dp(100) #taille de mes images.
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 20 # Le dessous des images
+                #padding: 10, 10, 10, 10
+
+<Details>
+    BoxLayout:
+        orientation: "vertical"
+
+        canvas:
+            Rectangle:
+                source: app.bg
+                pos: self.pos
+                size: self.size
+
+        Image:
+            source: app.title
+            pos_hint: {"center_x": 0.5, "center_y": 0.6}
+            size_hint: (.8, .3)
+
+        ImageButton:
+            source: "assets/thematics/return.png"
+            on_press:
+                root.manager.current="thematics"
+            pos_hint: {"center_x": .5, "y": .8}
+            size_hint: (.5, .5)
+
+
+
+
+<ImageButton@ButtonBehavior+Image>:
+
+<Image_nav@ButtonBehavior+Image>:
+    on_press:
+        app.navPage(self.elt)
+
+
+
+

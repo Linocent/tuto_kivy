@@ -1,5 +1,3 @@
-import kivy
-
 from kivy.uix.recycleview import RecycleView
 from kivy.app import App
 
