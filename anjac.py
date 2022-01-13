@@ -1,5 +1,6 @@
 import os
 
+from kivy.animation import Animation
 from kivy.properties import StringProperty, ObjectProperty
 from kivy.uix.screenmanager import Screen
 from kivy.app import App
@@ -15,7 +16,8 @@ class Thematics(Screen):
 
 
 class Details(Screen):
-    data = [{"source": "assets/thematics/pickmeup.png"}]
+    pass
+
 
 
 class AnjacApp(App):
