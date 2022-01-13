@@ -46,7 +46,7 @@ BoxLayout:
 
         Image:
             source: "assets/hub_thematics/title.png"
-            pos_hint: {"center_x": 0.5, "center_y": 0.6}
+            pos_hint: {"center_x": 0.5, "y": .6}
             size_hint: (.8, .3)
 
         RecycleView:
@@ -58,8 +58,7 @@ BoxLayout:
                 default_size_hint: 1, None
                 size_hint_y: None
                 height: self.minimum_height
-                spacing: 20 # Le dessous des images
-                #padding: 10, 10, 10, 10
+                spacing: 20, 20 # Le dessous des images
 
 <Details>
     BoxLayout:
@@ -72,16 +71,33 @@ BoxLayout:
                 size: self.size
 
         Image:
-            source: app.title
-            pos_hint: {"center_x": 0.5, "center_y": 0.6}
-            size_hint: (.8, .3)
+            source: app.pTitle
+            pos_hint: {"center_x": .5, "y": .6}
+            size_hint: None, None
+            size: self.texture_size
 
-        ImageButton:
-            source: "assets/thematics/return.png"
-            on_press:
-                root.manager.current="thematics"
-            pos_hint: {"center_x": .5, "y": .8}
-            size_hint: (.5, .5)
+        FloatLayout:
+            Pickmeup:
+                pos_hint: {"x": 0, "y":.3}
+            Pickmeup:
+                pos_hint: {"x": .2, "y": .3}
+            Pickmeup:
+                pos_hint: {"x": .4, "y": .3}
+            Pickmeup:
+                pos_hint: {"x": .6, "y": .3}
+            Pickmeup:
+                pos_hint: {"x": .8, "y": .3}
+
+        FloatLayout:
+            ImageButton: # On est obligé de donner une size à une image avant de la déplacer.
+            # Sinon elle prend toute la place du FloatLayout.
+                source: "assets/thematics/return.png"
+                pos_hint: {"center_x": .8, "y": 0}
+                size_hint: None, None
+                size: self.texture_size
+                on_press:
+                    root.manager.current="thematics"
+
 
 
 
@@ -91,6 +107,11 @@ BoxLayout:
 <Image_nav@ButtonBehavior+Image>:
     on_press:
         app.navPage(self.elt)
+
+<Pickmeup@Image>:
+    source: "assets/thematics/pickmeup.png"
+    size_hint: None, None
+    size: self.texture_size
 
 
 

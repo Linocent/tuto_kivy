@@ -1,6 +1,6 @@
 import os
 
-from kivy.properties import StringProperty
+from kivy.properties import StringProperty, ObjectProperty
 from kivy.uix.screenmanager import Screen
 from kivy.app import App
 
@@ -15,12 +15,12 @@ class Thematics(Screen):
 
 
 class Details(Screen):
-    pass
+    data = [{"source": "assets/thematics/pickmeup.png"}]
 
 
 class AnjacApp(App):
     bg = StringProperty()
-    title = StringProperty()
+    pTitle = StringProperty()
 
     def build(self):
         self.sm = self.root.ids["screen_manager"]
@@ -29,7 +29,7 @@ class AnjacApp(App):
         self.sm.current = "details"
         choice = str(choice[0:-4])
         self.bg = f"assets/thematics/{choice}/background.png"
-        self.title = f"assets/thematics/{choice}/title.png"
+        self.pTitle = f"assets/thematics/{choice}/title.png"
 
 
 anjac = AnjacApp()
