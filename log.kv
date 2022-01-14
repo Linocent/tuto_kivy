@@ -1,0 +1,76 @@
+BoxLayout:
+    ScreenManager:
+        id: screen_manager
+
+        Log:
+            name: "log"
+        Home:
+            name: "home"
+
+<Log>:
+    username: username
+    password: password
+    info: info
+    BoxLayout:
+        orientation: "vertical"
+
+        Label:
+            text: "Hello"
+            font_size: "45"
+        Label:
+            id: info
+            text: "Connexion:"
+            font_size: "20"
+            halign: "center"
+            bold: True
+            underline: True
+
+        BoxLayout:
+            orientation: "horizontal"
+
+            Label:
+                text: "Username :"
+                font_size: "18"
+                halign: "left"
+
+            TextInput:
+                id: username
+                multiline: False
+                font_size: "18"
+
+        BoxLayout:
+            orientation: "horizontal"
+            Label:
+                text: "Password :"
+                font_size: "18"
+                halign: "left"
+
+            TextInput:
+                id: password
+                multiline: False
+                font_size: "18"
+
+        BoxLayout:
+            Button:
+                text: "Submit"
+                font_size: "32"
+                on_press:
+                    root.check_user()
+
+<Home>:
+    BoxLayout:
+        orientation: "vertical"
+
+        BoxLayout:
+            orientation: "vertical"
+
+            Label:
+                text: app.username
+                font_size: "20"
+                bold: True
+                underline: True
+
+            Button:
+                text: "Log out"
+                on_press:
+                    root.manager.current="log"
