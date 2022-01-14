@@ -1,6 +1,5 @@
 import os
 
-from kivy.animation import Animation
 from kivy.properties import StringProperty, ObjectProperty
 from kivy.uix.screenmanager import Screen
 from kivy.app import App
@@ -17,7 +16,6 @@ class Thematics(Screen):
 
 class Details(Screen):
     pass
-
 
 
 class AnjacApp(App):
