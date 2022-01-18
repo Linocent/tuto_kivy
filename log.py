@@ -1,31 +1,52 @@
-import kivy
-
-from kivy.uix.screenmanager import Screen
+from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.app import App
-from kivy.properties import ObjectProperty, StringProperty
+from kivy.properties import StringProperty
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.textinput import TextInput
 
 
-class Log(Screen):
-    """First screen where user write username and password"""
-    username = ObjectProperty(None)
-    password = ObjectProperty(None)
-    info = ObjectProperty(None)
+class LoginScreen(Screen):
+    def change(self):
+        self.manager.current = "home"
 
-    def check_user(self):
-        """Check if the user's info are right"""
-        if (self.username.text, self.password.text) == ("test", "1234"):
-            log.login(self.username.text)
+
+class LoginBox(BoxLayout):
+    """Take login and pass and lauch an event to the LoginScreen(Screen)"""
+    __events__ = ('on_login_success', 'on_error')
+
+    def on_login_success(self):
+        pass
+
+    def on_error(self):
+        pass
+
+    def get_data(self):
+        fields_user = self.ids.username
+        fields_password = self.ids.password
+        for fields in reversed(fields_user.children):
+            for n in fields.children:
+                if isinstance(n, TextInput):
+                    username = n.text
+                    n.text = ""
+        for fields in reversed(fields_password.children):
+            for m in fields.children:
+                if isinstance(m, TextInput):
+                    password = m.text
+                    m.text = ""
+        self.to_log(username, password)
+
+    def to_log(self, username, password):
+        if (username, password) == ("test", "1234"):
+            self.dispatch('on_login_success')
+            log.username = username
             self.reset()
         else:
-            self.info.text = "Wrong username or password, try again:"
-            self.info.color = "#EC0707"
-            self.username.text = ""
-            self.password.text = ""
+            self.dispatch('on_error')
 
     def reset(self):
         """Reset username and password"""
-        self.username.text = ""
-        self.password.text = ""
+        self.ids["username"].text = ""
+        self.ids["password"].text = ""
 
 
 class Home(Screen):
@@ -37,11 +58,11 @@ class LogApp(App):
     username = StringProperty("")
 
     def build(self):
-        self.sm = self.root.ids['screen_manager']
+        sm = ScreenManager()
 
-    def login(self, username):
-        self.sm.current = "home"
-        self.username = f" Hello {username}"
+        sm.add_widget(LoginScreen(name="log"))
+        sm.add_widget(Home(name="home"))
+        return sm
 
 
 log = LogApp()

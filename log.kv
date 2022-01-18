@@ -1,15 +1,5 @@
-BoxLayout:
-    ScreenManager:
-        id: screen_manager
 
-        Log:
-            name: "log"
-        Home:
-            name: "home"
-
-<Log>:
-    username: username
-    password: password
+<LoginScreen>:
     info: info
     BoxLayout:
         orientation: "vertical"
@@ -19,43 +9,48 @@ BoxLayout:
             font_size: "45"
         Label:
             id: info
-            text: "Connexion:"
+            text: "Log toi:"
             font_size: "20"
             halign: "center"
             bold: True
             underline: True
+        LoginBox:
+            on_login_success: root.change()
+            on_error:
+                info.text = "Wrong username or password, try again:"
 
-        BoxLayout:
-            orientation: "horizontal"
+<LoginBox>:
+    BoxLayout:
+        orientation: "vertical"
 
-            Label:
-                text: "Username :"
-                font_size: "18"
-                halign: "left"
+        Fields:
+            id: username
+            name: "Username"
 
-            TextInput:
-                id: username
-                multiline: False
-                font_size: "18"
+        Fields:
+            id: password
+            name: "Password"
 
-        BoxLayout:
-            orientation: "horizontal"
-            Label:
-                text: "Password :"
-                font_size: "18"
-                halign: "left"
+        Button:
+            text: "Submit"
+            font_size: "32"
+            on_press:
+                root.get_data()
 
-            TextInput:
-                id: password
-                multiline: False
-                font_size: "18"
+<Fields@BoxLayout>:
+    name: ''
+    BoxLayout:
+        orientation: "horizontal"
 
-        BoxLayout:
-            Button:
-                text: "Submit"
-                font_size: "32"
-                on_press:
-                    root.check_user()
+        Label:
+            text: root.name
+            font_size: "18"
+            halign: "left"
+
+        TextInput:
+            id: root.name
+            multiline: False
+            font_size: "18"
 
 <Home>:
     BoxLayout:
@@ -65,7 +60,7 @@ BoxLayout:
             orientation: "vertical"
 
             Label:
-                text: app.username
+                text: "Hello "+app.username
                 font_size: "20"
                 bold: True
                 underline: True
