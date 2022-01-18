@@ -1,6 +1,16 @@
+BoxLayout:
+    ScreenManager:
+        id: screenmanager
+
+        LoginScreen:
+            name: "login"
+
+        HomeScreen:
+            name: "home"
 
 <LoginScreen>:
-    info: info
+    error: ''
+
     BoxLayout:
         orientation: "vertical"
 
@@ -8,17 +18,16 @@
             text: "Hello"
             font_size: "45"
         Label:
-            id: info
-            text: "Log toi:"
+            text: root.error if root.error else "Log toi:"
             font_size: "20"
             halign: "center"
             bold: True
             underline: True
         LoginBox:
             on_login_success:
-                root.change()
+                root.login()
             on_error:
-                info.text = "Wrong username or password, try again:"
+                root.wrong_id()
 
 <LoginBox>:
     BoxLayout:
@@ -36,10 +45,11 @@
             text: "Submit"
             font_size: "32"
             on_press:
-                root.get_data()
+                root.to_log(username.value, password.value)
 
 <Fields@BoxLayout>:
     name: ''
+    value: ''
     BoxLayout:
         orientation: "horizontal"
 
@@ -52,8 +62,10 @@
             id: root.name
             multiline: False
             font_size: "18"
+            on_text:
+                root.value = self.text
 
-<Home>:
+<HomeScreen>:
     BoxLayout:
         orientation: "vertical"
 
@@ -69,4 +81,4 @@
             Button:
                 text: "Log out"
                 on_press:
-                    root.manager.current="log"
+                    app.change_to('login')
