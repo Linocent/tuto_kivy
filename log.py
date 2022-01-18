@@ -43,11 +43,6 @@ class LoginBox(BoxLayout):
         else:
             self.dispatch('on_error')
 
-    def reset(self):
-        """Reset username and password"""
-        self.ids["username"].text = ""
-        self.ids["password"].text = ""
-
 
 class Home(Screen):
     """Second screen with log out button"""
