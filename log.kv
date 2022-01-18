@@ -15,7 +15,8 @@
             bold: True
             underline: True
         LoginBox:
-            on_login_success: root.change()
+            on_login_success:
+                root.change()
             on_error:
                 info.text = "Wrong username or password, try again:"
 
