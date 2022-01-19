@@ -11,7 +11,7 @@ class Home(Screen):
 
 class Thematics(Screen):
     rv_data = [{"elt": str(elt), "source": str("assets/hub_thematics/"+elt)}
-               for elt in os.listdir("assets/hub_thematics") if elt.startswith("0")]
+               for elt in os.listdir("../assets/hub_thematics") if elt.startswith("0")]
 
 
 class Details(Screen):
