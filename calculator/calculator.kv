@@ -1,0 +1,66 @@
+<Calculate>:
+    id: calculate
+    display: entry
+    rows: 5
+    spacing: 20
+    padding: 10
+
+    BoxLayout:
+        Label:
+            id: entry
+            text: ""
+            font_size: 30
+            multiline: False
+
+    BoxLayout:
+        spacing: 10
+        EntryButton:
+            text: "7"
+        EntryButton:
+            text: "8"
+        EntryButton:
+            text: "9"
+        EntryButton:
+            text: "*"
+
+    BoxLayout:
+        spacing: 10
+        EntryButton:
+            text: "4"
+        EntryButton:
+            text: "5"
+        EntryButton:
+            text: "6"
+        EntryButton:
+            text: "-"
+
+    BoxLayout:
+        spacing: 10
+        EntryButton:
+            text: "1"
+        EntryButton:
+            text: "2"
+        EntryButton:
+            text: "3"
+        EntryButton:
+            text: "+"
+
+    BoxLayout:
+        spacing: 10
+        Button:
+            text: "C"
+            on_press:
+                entry.text = ""
+        EntryButton:
+            text: "0"
+        Button:
+            text: "="
+            on_press:
+                calculate.to_calculate(entry.text)
+        EntryButton:
+            text: "/"
+
+<EntryButton@Button>:
+    font_size: 30
+    on_press:
+        self.parent.parent.ids.entry.text += self.text
